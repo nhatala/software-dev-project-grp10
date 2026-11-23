@@ -1,17 +1,20 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Services</title>
+    <meta name="description"
+        content="Explore pet daycare services, prices and opening hours at Paws & Play.">
+    <title>Daycare Services | Paws & Play</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="icon" type="image/x-icon" href="images/favicon.ico">
 </head>
 
 <body>
     <main>
-        <!-- Page header banner -->
+        <!-- Page banner -->
         <section class="page-banner">
             <h1>Our daycare services</h1>
             <p>Safe, supervised, and fun daily play environments.</p>
@@ -19,35 +22,148 @@
 
         <!-- Header and navigation -->
         <header class="header">
-            <!-- Menu toggle and hamburger icon -->
             <input type="checkbox" id="open-menu" class="menu-toggle">
-            <label for="open-menu" class="menu-icon">&#9776;</label>
-            <nav class="nav">
+
+            <label for="open-menu" class="menu-icon"
+                aria-label="Toggle navigation menu">&#9776;</label>
+
+            <nav class="nav" aria-label="Main navigation">
                 <ul class="nav-list">
-                    <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
-                    <li class="nav-item"><a href="services.html" class="nav-link">Services</a></li>
-                    <li class="nav-item"><a href="booking.html" class="nav-link">Booking</a></li>
-                    <li class="nav-item"><a href="pet-care.html" class="nav-link">Pet care</a></li>
-                    <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+                    <li class="nav-item">
+                        <a href="index.html" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="services.html" class="nav-link"
+                            aria-current="page">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="booking.html" class="nav-link">Booking</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="pet-care.html" class="nav-link">Pet care</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="contact.html" class="nav-link">Contact</a>
+                    </li>
                 </ul>
             </nav>
         </header>
 
-        <!-- Main content -->
-        <section class="content">
-            <h2>---</h2>
-            <p>----</p>
+        <!-- Daycare services -->
+        <section class="content services-content">
+            <h2>Our Daycare Services</h2>
+
+            <p>
+                At Paws &amp; Play, we provide a safe, caring
+                and enjoyable environment for your pets.
+                Explore our daycare services below.
+            </p>
+
+            <div class="services-grid">
+
+                <article class="service-card">
+                    <h3>Full-Day Dog Daycare</h3>
+                    <p>
+                        A full day of supervised playtime,
+                        social activities, exercise, rest
+                        periods and attentive care.
+                    </p>
+                    <p class="service-price">€30 / day</p>
+                </article>
+
+                <article class="service-card">
+                    <h3>Half-Day Dog Daycare</h3>
+                    <p>
+                        Up to four hours of supervised play,
+                        exercise and social interaction
+                        in a safe environment.
+                    </p>
+                    <p class="service-price">€18 / session</p>
+                </article>
+
+                <article class="service-card">
+                    <h3>Puppy Daycare</h3>
+                    <p>
+                        Special care for young puppies,
+                        including gentle socialisation,
+                        supervised playtime and rest breaks.
+                    </p>
+                    <p class="service-price">€25 / day</p>
+                </article>
+
+                <article class="service-card">
+                    <h3>Pet Care and Feeding</h3>
+                    <p>
+                        Personalised feeding, fresh drinking
+                        water and attentive care according
+                        to your pet's daily needs.
+                    </p>
+                    <p class="service-price">€15 / session</p>
+                </article>
+
+            </div>
+
+            <!-- Opening hours -->
+            <section class="services-info" aria-labelledby="hours-heading">
+                <h2 id="hours-heading">Opening Hours</h2>
+
+                <table class="hours-table">
+                    <tbody>
+                        <tr>
+                            <th scope="row">Monday – Friday</th>
+                            <td>07:00 – 18:00</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Saturday</th>
+                            <td>09:00 – 15:00</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Sunday</th>
+                            <td>Closed</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Contact information -->
+            <section class="services-info" aria-labelledby="contact-heading">
+                <h2 id="contact-heading">Contact Information</h2>
+
+                <p>
+                    Have questions about our daycare services,
+                    pricing or availability? Our team is happy
+                    to help you.
+                </p>
+
+                <p>
+                    Visit our
+                    <a href="contact.html">Contact page</a>
+                    for contact details and enquiries.
+                </p>
+            </section>
+
+            <!-- Booking button -->
+            <div class="services-booking">
+                <h2>Ready to Book Daycare?</h2>
+
+                <p>
+                    Give your pet a safe and enjoyable
+                    daycare experience.
+                </p>
+
+                <a href="booking.html" class="service-book-button">
+                    Book Daycare
+                </a>
+            </div>
+
         </section>
-
-
     </main>
 
     <!-- Footer -->
     <footer class="footer">
         <p>Thank you for visiting our website</p>
-        <p>&copy; 2026 Paws & Play. All rights reserved.</p>
+        <p>&copy; 2026 Paws &amp; Play. All rights reserved.</p>
     </footer>
-
 </body>
 
 </html>
