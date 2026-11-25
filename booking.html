@@ -1,52 +1,1099 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Booking</title>
+    <meta name="description"
+        content="Book and manage daycare appointments at Paws & Play.">
+    <title>Booking & Appointments | Paws & Play</title>
+
     <link rel="stylesheet" href="css/styles.css">
     <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+
+    <style>
+        /* GRP10-27: Booking and appointment management */
+
+        .booking-intro {
+            margin-bottom: 25px;
+        }
+
+        .booking-tabs {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 25px;
+        }
+
+        .booking-tab {
+            display: inline-block;
+            padding: 12px 20px;
+            background: #FFFDF0;
+            border: 1px solid #D8C8B3;
+            border-radius: 8px;
+            color: #2C2C2C;
+            text-decoration: none;
+            font: inherit;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .booking-tab:hover,
+        .booking-tab:focus-visible,
+        .booking-tab.active {
+            background: #B6533C;
+            color: white;
+        }
+
+        .booking-panel {
+            background: #FFFDF0;
+            border: 1px solid #E4D8C4;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+        }
+
+        .booking-panel h2 {
+            margin-bottom: 15px;
+        }
+
+        .booking-form {
+            display: grid;
+            gap: 15px;
+        }
+
+        .booking-field {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .booking-field label {
+            font-weight: bold;
+        }
+
+        .booking-field input,
+        .booking-field select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #CBBDA8;
+            border-radius: 6px;
+            background: white;
+            color: #2C2C2C;
+            font: inherit;
+        }
+
+        .booking-field input:focus,
+        .booking-field select:focus {
+            outline: 2px solid #B6533C;
+            outline-offset: 1px;
+        }
+
+        .booking-two-columns {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .booking-button {
+            display: inline-block;
+            padding: 11px 18px;
+            background: #B6533C;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            font: inherit;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .booking-button:hover,
+        .booking-button:focus-visible {
+            background: #873D2C;
+        }
+
+        .booking-button.secondary {
+            background: #EEE3D3;
+            color: #2C2C2C;
+        }
+
+        .booking-button.secondary:hover {
+            background: #DDCDB9;
+        }
+
+        .booking-button.danger {
+            background: #A52A2A;
+        }
+
+        .booking-button.danger:hover {
+            background: #7B2020;
+        }
+
+        .booking-actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 18px;
+        }
+
+        .booking-notice {
+            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 7px;
+            background: #F5E9D5;
+            border: 1px solid #DFCFB6;
+        }
+
+        .booking-message {
+            padding: 12px;
+            margin-bottom: 15px;
+            border-radius: 7px;
+            background: #E4F1E7;
+            color: #205A34;
+        }
+
+        .booking-message.error {
+            background: #FCE5E5;
+            color: #8B2020;
+        }
+
+        .appointment-list {
+            display: grid;
+            gap: 18px;
+        }
+
+        .appointment-card {
+            background: white;
+            border: 1px solid #DDD0BD;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+        }
+
+        .appointment-card h3 {
+            margin-bottom: 12px;
+        }
+
+        .appointment-card p {
+            margin-bottom: 7px;
+        }
+
+        .appointment-status {
+            display: inline-block;
+            margin: 10px 0;
+            padding: 5px 12px;
+            border-radius: 20px;
+            background: #E2F2E4;
+            color: #236238;
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .booking-empty {
+            text-align: center;
+            padding: 35px 15px;
+            background: #F9F3E8;
+            border-radius: 8px;
+        }
+
+        .booking-empty p {
+            margin: 10px 0 20px;
+        }
+
+        .booking-demo-note {
+            font-size: 0.9rem;
+            color: #66594B;
+            margin-top: 15px;
+        }
+
+        [hidden] {
+            display: none !important;
+        }
+
+        @media (max-width: 600px) {
+            .booking-panel {
+                padding: 18px 15px;
+            }
+
+            .booking-two-columns {
+                grid-template-columns: 1fr;
+            }
+
+            .booking-tabs {
+                flex-direction: column;
+            }
+
+            .booking-tab {
+                text-align: center;
+            }
+
+            .booking-actions {
+                flex-direction: column;
+            }
+
+            .booking-actions button {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 
 <body>
     <main>
-        <!-- Page header banner -->
+
+        <!-- Page banner -->
         <section class="page-banner">
-            <h1>Book a service</h1>
-            <p>Fill out the form below to book a service for your pet.</p>
+            <h1>Booking & Appointments</h1>
+            <p>
+                Book daycare services and manage your
+                upcoming appointments.
+            </p>
         </section>
 
         <!-- Header and navigation -->
         <header class="header">
-            <!-- Menu toggle and hamburger icon -->
-            <input type="checkbox" id="open-menu" class="menu-toggle">
-            <label for="open-menu" class="menu-icon">&#9776;</label>
-            <nav class="nav">
+            <input type="checkbox"
+                id="open-menu"
+                class="menu-toggle">
+
+            <label for="open-menu"
+                class="menu-icon"
+                aria-label="Toggle navigation menu">
+                &#9776;
+            </label>
+
+            <nav class="nav" aria-label="Main navigation">
                 <ul class="nav-list">
-                    <li class="nav-item"><a href="index.html" class="nav-link">Home</a></li>
-                    <li class="nav-item"><a href="services.html" class="nav-link">Services</a></li>
-                    <li class="nav-item"><a href="booking.html" class="nav-link">Booking</a></li>
-                    <li class="nav-item"><a href="pet-care.html" class="nav-link">Pet care</a></li>
-                    <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
+                    <li class="nav-item">
+                        <a href="index.html"
+                            class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="services.html"
+                            class="nav-link">Services</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="booking.html"
+                            class="nav-link"
+                            aria-current="page">Booking</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="pet-care.html"
+                            class="nav-link">Pet care</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="contact.html"
+                            class="nav-link">Contact</a>
+                    </li>
                 </ul>
             </nav>
         </header>
 
         <!-- Main content -->
         <section class="content">
-            <h2>---</h2>
-            <p>----</p>
-        </section>
 
+            <div class="booking-intro">
+                <h2>Welcome to Paws &amp; Play</h2>
+                <p>
+                    Schedule daycare for your pet or view,
+                    cancel and reschedule existing appointments.
+                </p>
+            </div>
+
+            <div class="booking-notice">
+                <strong>Project demonstration</strong>
+                <p>
+                    This page stores example bookings only
+                    in your current browser. No real
+                    reservations are sent to the daycare,
+                    and customer login is not implemented.
+                </p>
+            </div>
+
+            <!-- Tab navigation -->
+            <nav class="booking-tabs"
+                aria-label="Booking sections">
+
+                <a href="#new-booking"
+                    id="new-booking-tab"
+                    class="booking-tab active">
+                    Book a Service
+                </a>
+
+                <a href="#my-appointments"
+                    id="appointments-tab"
+                    class="booking-tab">
+                    My Appointments
+                </a>
+
+            </nav>
+
+            <div id="status-message"
+                role="status"
+                aria-live="polite"
+                hidden>
+            </div>
+
+            <!-- New appointment form -->
+            <section id="new-booking"
+                class="booking-panel">
+
+                <h2>Book a Daycare Service</h2>
+
+                <form id="booking-form"
+                    class="booking-form">
+
+                    <div class="booking-field">
+                        <label for="customer-name">
+                            Customer Name
+                        </label>
+
+                        <input type="text"
+                            id="customer-name"
+                            name="customer-name"
+                            minlength="2"
+                            maxlength="80"
+                            autocomplete="name"
+                            required>
+                    </div>
+
+                    <div class="booking-field">
+                        <label for="pet-name">
+                            Pet Name
+                        </label>
+
+                        <input type="text"
+                            id="pet-name"
+                            name="pet-name"
+                            minlength="2"
+                            maxlength="60"
+                            required>
+                    </div>
+
+                    <div class="booking-field">
+                        <label for="service">
+                            Daycare Service
+                        </label>
+
+                        <select id="service"
+                            name="service"
+                            required>
+
+                            <option value="">
+                                Select a service
+                            </option>
+
+                            <option value="Full-Day Dog Daycare">
+                                Full-Day Dog Daycare - €30
+                            </option>
+
+                            <option value="Half-Day Dog Daycare">
+                                Half-Day Dog Daycare - €18
+                            </option>
+
+                            <option value="Puppy Daycare">
+                                Puppy Daycare - €25
+                            </option>
+
+                            <option value="Pet Care and Feeding">
+                                Pet Care and Feeding - €15
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="booking-two-columns">
+
+                        <div class="booking-field">
+                            <label for="booking-date">
+                                Appointment Date
+                            </label>
+
+                            <input type="date"
+                                id="booking-date"
+                                name="booking-date"
+                                required>
+                        </div>
+
+                        <div class="booking-field">
+                            <label for="booking-time">
+                                Appointment Time
+                            </label>
+
+                            <select id="booking-time"
+                                name="booking-time"
+                                required>
+
+                                <option value="">
+                                    Select a time
+                                </option>
+
+                                <option value="07:00">07:00</option>
+                                <option value="08:00">08:00</option>
+                                <option value="09:00">09:00</option>
+                                <option value="10:00">10:00</option>
+                                <option value="11:00">11:00</option>
+                                <option value="12:00">12:00</option>
+                                <option value="13:00">13:00</option>
+                                <option value="14:00">14:00</option>
+                                <option value="15:00">15:00</option>
+                                <option value="16:00">16:00</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                    <div class="booking-actions">
+                        <button type="submit"
+                            class="booking-button">
+                            Confirm Booking
+                        </button>
+                    </div>
+
+                </form>
+
+            </section>
+
+            <!-- My appointments -->
+            <section id="my-appointments"
+                class="booking-panel"
+                hidden>
+
+                <h2>My Upcoming Appointments</h2>
+
+                <p>
+                    View your scheduled daycare visits.
+                    You can cancel an appointment or
+                    reschedule it to another available
+                    date and time in this demonstration.
+                </p>
+
+                <div id="appointment-list"
+                    class="appointment-list">
+                </div>
+
+                <p class="booking-demo-note">
+                    Demo bookings are visible to anyone
+                    using this browser and are not linked
+                    to a verified customer account.
+                </p>
+
+            </section>
+
+            <!-- Rescheduling panel -->
+            <section id="reschedule-panel"
+                class="booking-panel"
+                hidden>
+
+                <h2>Reschedule Appointment</h2>
+
+                <form id="reschedule-form"
+                    class="booking-form">
+
+                    <div class="booking-field">
+                        <label for="reschedule-date">
+                            New Appointment Date
+                        </label>
+
+                        <input type="date"
+                            id="reschedule-date"
+                            required>
+                    </div>
+
+                    <div class="booking-field">
+                        <label for="reschedule-time">
+                            New Appointment Time
+                        </label>
+
+                        <select id="reschedule-time" required>
+                            <option value="">
+                                Select a time
+                            </option>
+                            <option value="07:00">07:00</option>
+                            <option value="08:00">08:00</option>
+                            <option value="09:00">09:00</option>
+                            <option value="10:00">10:00</option>
+                            <option value="11:00">11:00</option>
+                            <option value="12:00">12:00</option>
+                            <option value="13:00">13:00</option>
+                            <option value="14:00">14:00</option>
+                            <option value="15:00">15:00</option>
+                            <option value="16:00">16:00</option>
+                        </select>
+                    </div>
+
+                    <div class="booking-actions">
+                        <button type="submit"
+                            class="booking-button">
+                            Save New Appointment
+                        </button>
+
+                        <button type="button"
+                            id="cancel-reschedule"
+                            class="booking-button secondary">
+                            Go Back
+                        </button>
+                    </div>
+
+                </form>
+
+            </section>
+
+        </section>
 
     </main>
 
     <!-- Footer -->
     <footer class="footer">
         <p>Thank you for visiting our website</p>
-        <p>&copy; 2026 Paws & Play. All rights reserved.</p>
+        <p>&copy; 2026 Paws &amp; Play. All rights reserved.</p>
     </footer>
+
+    <script>
+        "use strict";
+
+        // GRP10-27: Browser-only appointment demo.
+        // Real authentication and server storage are not included.
+
+        const STORAGE_KEY = "paws-play-demo-appointments-v1";
+
+        const bookingForm = document.getElementById("booking-form");
+        const rescheduleForm = document.getElementById("reschedule-form");
+
+        const bookingPanel = document.getElementById("new-booking");
+        const appointmentsPanel =
+            document.getElementById("my-appointments");
+        const reschedulePanel =
+            document.getElementById("reschedule-panel");
+
+        const bookingTab =
+            document.getElementById("new-booking-tab");
+        const appointmentsTab =
+            document.getElementById("appointments-tab");
+
+        const appointmentList =
+            document.getElementById("appointment-list");
+
+        const statusMessage =
+            document.getElementById("status-message");
+
+        const bookingDate =
+            document.getElementById("booking-date");
+        const rescheduleDate =
+            document.getElementById("reschedule-date");
+
+        let appointments = [];
+        let editingAppointmentId = null;
+
+        function loadAppointments() {
+            try {
+                const saved = JSON.parse(
+                    localStorage.getItem(STORAGE_KEY) || "[]"
+                );
+
+                appointments = Array.isArray(saved)
+                    ? saved.filter(item =>
+                        item &&
+                        typeof item.id === "string" &&
+                        typeof item.date === "string" &&
+                        typeof item.time === "string" &&
+                        typeof item.customer === "string" &&
+                        typeof item.pet === "string" &&
+                        typeof item.service === "string" &&
+                        (item.status === "Scheduled" ||
+                            item.status === "Cancelled")
+                    )
+                    : [];
+            } catch (error) {
+                appointments = [];
+                showMessage(
+                    "Saved bookings could not be loaded.",
+                    true
+                );
+            }
+        }
+
+        function saveAppointments() {
+            try {
+                localStorage.setItem(
+                    STORAGE_KEY,
+                    JSON.stringify(appointments)
+                );
+                return true;
+            } catch (error) {
+                showMessage(
+                    "The browser could not save your changes.",
+                    true
+                );
+                return false;
+            }
+        }
+
+        function localDateString(date) {
+            const year = date.getFullYear();
+            const month = String(
+                date.getMonth() + 1
+            ).padStart(2, "0");
+
+            const day = String(
+                date.getDate()
+            ).padStart(2, "0");
+
+            return `${year}-${month}-${day}`;
+        }
+
+        function setMinimumDates() {
+            const today = localDateString(new Date());
+            bookingDate.min = today;
+            rescheduleDate.min = today;
+        }
+
+        function isFutureAppointment(date, time) {
+            const datetime = new Date(
+                `${date}T${time}:00`
+            );
+
+            return Number.isFinite(datetime.getTime()) &&
+                datetime.getTime() > Date.now();
+        }
+
+        function validOpeningTime(date, time) {
+            const datetime = new Date(
+                `${date}T${time}:00`
+            );
+
+            if (!Number.isFinite(datetime.getTime())) {
+                return false;
+            }
+
+            const weekday = datetime.getDay();
+            const minutes = Number(time.slice(0, 2)) * 60 +
+                Number(time.slice(3, 5));
+
+            if (weekday === 0) {
+                return false;
+            }
+
+            if (weekday === 6) {
+                return minutes >= 9 * 60 &&
+                    minutes <= 14 * 60;
+            }
+
+            return minutes >= 7 * 60 &&
+                minutes <= 16 * 60;
+        }
+
+        function showMessage(message, isError = false) {
+            statusMessage.textContent = message;
+
+            statusMessage.className = isError
+                ? "booking-message error"
+                : "booking-message";
+
+            statusMessage.hidden = false;
+        }
+
+        function showPanel(panelName) {
+            bookingPanel.hidden = panelName !== "booking";
+            appointmentsPanel.hidden =
+                panelName !== "appointments";
+            reschedulePanel.hidden =
+                panelName !== "reschedule";
+
+            bookingTab.classList.toggle(
+                "active",
+                panelName === "booking"
+            );
+
+            appointmentsTab.classList.toggle(
+                "active",
+                panelName !== "booking"
+            );
+
+            if (panelName === "appointments") {
+                renderAppointments();
+            }
+        }
+
+        function formatAppointmentDate(date, time) {
+            const datetime = new Date(
+                `${date}T${time}:00`
+            );
+
+            return datetime.toLocaleString("en-GB", {
+                day: "numeric",
+                month: "long",
+                year: "numeric",
+                hour: "2-digit",
+                minute: "2-digit"
+            });
+        }
+
+        function addDetail(parent, label, value) {
+            const paragraph = document.createElement("p");
+            const strong = document.createElement("strong");
+
+            strong.textContent = `${label}: `;
+            paragraph.appendChild(strong);
+            paragraph.appendChild(
+                document.createTextNode(value)
+            );
+
+            parent.appendChild(paragraph);
+        }
+
+        function createAppointmentCard(appointment) {
+            const card = document.createElement("article");
+            card.className = "appointment-card";
+
+            const heading = document.createElement("h3");
+            heading.textContent = appointment.service;
+            card.appendChild(heading);
+
+            addDetail(
+                card, "Customer", appointment.customer
+            );
+            addDetail(
+                card, "Pet", appointment.pet
+            );
+            addDetail(
+                card,
+                "Date and Time",
+                formatAppointmentDate(
+                    appointment.date,
+                    appointment.time
+                )
+            );
+
+            const status = document.createElement("span");
+            status.className = "appointment-status";
+            status.textContent = "Scheduled";
+            card.appendChild(status);
+
+            const actions = document.createElement("div");
+            actions.className = "booking-actions";
+
+            const rescheduleButton =
+                document.createElement("button");
+
+            rescheduleButton.type = "button";
+            rescheduleButton.className =
+                "booking-button secondary";
+
+            rescheduleButton.textContent = "Reschedule";
+
+            rescheduleButton.addEventListener(
+                "click",
+                () => startRescheduling(appointment.id)
+            );
+
+            const cancelButton =
+                document.createElement("button");
+
+            cancelButton.type = "button";
+            cancelButton.className =
+                "booking-button danger";
+
+            cancelButton.textContent = "Cancel Appointment";
+
+            cancelButton.addEventListener(
+                "click",
+                () => cancelAppointment(appointment.id)
+            );
+
+            actions.appendChild(rescheduleButton);
+            actions.appendChild(cancelButton);
+            card.appendChild(actions);
+
+            return card;
+        }
+
+        function renderAppointments() {
+            appointmentList.replaceChildren();
+
+            const upcoming = appointments
+                .filter(appointment =>
+                    appointment.status === "Scheduled" &&
+                    isFutureAppointment(
+                        appointment.date,
+                        appointment.time
+                    )
+                )
+                .sort((a, b) =>
+                    `${a.date}T${a.time}`.localeCompare(
+                        `${b.date}T${b.time}`
+                    )
+                );
+
+            if (upcoming.length === 0) {
+                const empty = document.createElement("div");
+                empty.className = "booking-empty";
+
+                const heading = document.createElement("h3");
+                heading.textContent = "No Upcoming Appointments";
+
+                const text = document.createElement("p");
+                text.textContent =
+                    "You do not have any upcoming demo bookings.";
+
+                const button = document.createElement("button");
+                button.type = "button";
+                button.className = "booking-button";
+                button.textContent = "Book a Service";
+
+                button.addEventListener("click", () => {
+                    window.location.hash = "new-booking";
+                    showPanel("booking");
+                });
+
+                empty.appendChild(heading);
+                empty.appendChild(text);
+                empty.appendChild(button);
+
+                appointmentList.appendChild(empty);
+                return;
+            }
+
+            upcoming.forEach(appointment => {
+                appointmentList.appendChild(
+                    createAppointmentCard(appointment)
+                );
+            });
+        }
+
+        bookingForm.addEventListener("submit", event => {
+            event.preventDefault();
+            setMinimumDates();
+
+            const customer = document.getElementById(
+                "customer-name"
+            ).value.trim();
+
+            const pet = document.getElementById(
+                "pet-name"
+            ).value.trim();
+
+            const service = document.getElementById(
+                "service"
+            ).value;
+
+            const date = bookingDate.value;
+
+            const time = document.getElementById(
+                "booking-time"
+            ).value;
+
+            if (!customer || !pet || !service) {
+                showMessage(
+                    "Please complete all booking fields.",
+                    true
+                );
+                return;
+            }
+
+            if (!isFutureAppointment(date, time)) {
+                showMessage(
+                    "Please select a future date and time.",
+                    true
+                );
+                return;
+            }
+
+            if (!validOpeningTime(date, time)) {
+                showMessage(
+                    "Choose a time during opening hours. " +
+                    "Sunday bookings are unavailable.",
+                    true
+                );
+                return;
+            }
+
+            const appointment = {
+                id: `${Date.now()}-${Math.random()
+                    .toString(36).slice(2)}`,
+                customer,
+                pet,
+                service,
+                date,
+                time,
+                status: "Scheduled"
+            };
+
+            appointments.push(appointment);
+
+            if (!saveAppointments()) {
+                appointments.pop();
+                return;
+            }
+
+            bookingForm.reset();
+
+            showMessage(
+                "Demo appointment created successfully!"
+            );
+
+            window.location.hash = "my-appointments";
+            showPanel("appointments");
+        });
+
+        function cancelAppointment(id) {
+            const appointment = appointments.find(
+                item => item.id === id
+            );
+
+            if (!appointment ||
+                appointment.status !== "Scheduled") {
+                return;
+            }
+
+            const confirmed = confirm(
+                "Are you sure you want to cancel " +
+                "this appointment?"
+            );
+
+            if (!confirmed) {
+                return;
+            }
+
+            const previousStatus = appointment.status;
+            appointment.status = "Cancelled";
+
+            if (!saveAppointments()) {
+                appointment.status = previousStatus;
+                return;
+            }
+
+            renderAppointments();
+
+            showMessage(
+                "Demo appointment cancelled successfully."
+            );
+        }
+
+        function startRescheduling(id) {
+            const appointment = appointments.find(
+                item => item.id === id &&
+                    item.status === "Scheduled"
+            );
+
+            if (!appointment) {
+                showMessage(
+                    "Appointment was not found.",
+                    true
+                );
+                return;
+            }
+
+            editingAppointmentId = id;
+
+            setMinimumDates();
+            rescheduleDate.value = appointment.date;
+
+            document.getElementById(
+                "reschedule-time"
+            ).value = appointment.time;
+
+            showPanel("reschedule");
+
+            reschedulePanel.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+        }
+
+        rescheduleForm.addEventListener(
+            "submit",
+            event => {
+                event.preventDefault();
+                setMinimumDates();
+
+                const appointment = appointments.find(
+                    item =>
+                        item.id === editingAppointmentId &&
+                        item.status === "Scheduled"
+                );
+
+                if (!appointment) {
+                    showMessage(
+                        "Appointment was not found.",
+                        true
+                    );
+                    showPanel("appointments");
+                    return;
+                }
+
+                const newDate = rescheduleDate.value;
+                const newTime = document.getElementById(
+                    "reschedule-time"
+                ).value;
+
+                if (!isFutureAppointment(newDate, newTime)) {
+                    showMessage(
+                        "Choose a future date and time.",
+                        true
+                    );
+                    return;
+                }
+
+                if (!validOpeningTime(newDate, newTime)) {
+                    showMessage(
+                        "Select a time during opening hours.",
+                        true
+                    );
+                    return;
+                }
+
+                const oldDate = appointment.date;
+                const oldTime = appointment.time;
+
+                appointment.date = newDate;
+                appointment.time = newTime;
+
+                if (!saveAppointments()) {
+                    appointment.date = oldDate;
+                    appointment.time = oldTime;
+                    return;
+                }
+
+                editingAppointmentId = null;
+
+                showMessage(
+                    "Demo appointment rescheduled successfully!"
+                );
+
+                window.location.hash = "my-appointments";
+                showPanel("appointments");
+            }
+        );
+
+        document.getElementById(
+            "cancel-reschedule"
+        ).addEventListener("click", () => {
+            editingAppointmentId = null;
+            window.location.hash = "my-appointments";
+            showPanel("appointments");
+        });
+
+        function handleNavigation() {
+            const hash = window.location.hash;
+
+            if (hash === "#my-appointments") {
+                showPanel("appointments");
+            } else if (hash === "#new-booking") {
+                showPanel("booking");
+            }
+        }
+
+        window.addEventListener(
+            "hashchange",
+            handleNavigation
+        );
+
+        // Initial page setup
+        loadAppointments();
+        setMinimumDates();
+        handleNavigation();
+    </script>
 
 </body>
 
